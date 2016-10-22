@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>QQBot SpringHack</title>
+        <script src='//cdn.bootcss.com/jquery/3.1.1/jquery.min.js'></script>
+        <script src='main.js'></script>
+        <link href='main.css' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+        <legend>
+            <a href='#' onclick='create()'>New Bot</a>
+            <a href='#' onclick='killall()'>Kill All</a>
+            <a href='#' onclick='clean()'>Clean QRCode</a>
+        </legend>
+        <legend>Scan QRCode Here:</legend>
+        <section id='img'></section>
+        <legend>Manage Process Here</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>Create Time</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <legend>QQ Number History</legend>
+        <section id='history'></section>
+    </body>
+</html>

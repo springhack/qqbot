@@ -1,0 +1,55 @@
+* {
+    transition: all .5s;
+}
+body, img, div, section {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    font-family: "苹方", "Microsoft YaHei", "Comic Sans MS", "幼圆", "黑体", sans-serif;
+}
+body {
+    text-align: center;
+}
+#img, #history, legend {
+    max-width: 500px;
+    margin: auto;
+    margin-top: 5px;
+    text-align: center;
+    overflow: auto;
+}
+table {
+    margin: auto;
+    width: 510px;
+    margin-top: 5px;
+    border: 1px #444 solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+#img, #history, th, td {
+    border: 1px #444 solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+#img:hover, #history:hover, th:hover, td:hover {
+    color: #FFF;
+    background-color: #444;
+}
+#img img {
+    margin: 30px;
+}
+a{
+    color: #F00;
+    text-decoration: none;
+    display: inline-block;
+    width: 152px;
+    border: 1px #F00 solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+a:hover { 
+    color: #FFF;
+    background-color: #F00;
+}
+#history a {
+    width: auto;
+}
