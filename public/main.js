@@ -28,7 +28,7 @@ $((function (undefined) {
             .catch(err => console.log(err));
     };
 
-    setInterval(() => {
+    let timer = () => {
 
         $.get('/qrcode')
             .then(json => {
@@ -49,11 +49,15 @@ $((function (undefined) {
         $.get('/list')
             .then(json => {
                 json = JSON.parse(json);
-                let dom = json.map(item => `<tr><td>${item.time}</td><td><a href='#' onclick='kill("${item.token}")'>Kill</a></td></tr>`);
+                let dom = json.map(item => `<tr><td>${(new Date(item.time)).toString()}</td><td><a href='#' onclick='kill("${item.token}")'>Kill</a></td></tr>`);
                 tb.html(dom);
             })
             .catch(err => console.log(err));
 
-    }, 1000);
+    }
+
+    timer();
+
+    setInterval(timer, 1000);
 
 }).bind(window));;

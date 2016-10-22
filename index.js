@@ -17,6 +17,7 @@ app.get('/list', (req, res) => {
             token : item.token
         };
     });
+    n_arr = n_arr.sort((a, b) => b.time - a.time);
     res.end(JSON.stringify(n_arr));
 });
 
@@ -45,7 +46,7 @@ app.get('/new', (req, res) => {
     try {
         let obj = {
             token : uuid.v1(),
-            time : new Date(),
+            time : (new Date()).getTime(),
         };
         obj.handler = spawn('python', ['./bot/bot.py']);
         obj.handler.on('exit', code => {
