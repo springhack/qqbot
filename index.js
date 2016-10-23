@@ -7,6 +7,31 @@ let uuid = require('node-uuid');
 
 let app = express();
 let arrs = [];
+let Log = (function () {
+    let fd = fs.openSync('./python.log', 'a');
+    return (token, info) => {
+        try {
+            let time = (new Date()).toString();
+            fs.writeSync(fd, `[${time}]\n[${token}] => ${info}\n`);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+})();
+
+Log('SpringHack', 'Initial system done ...');
+
+if (!fs.existsSync('./public/tokens'))
+{
+    try {
+        fs.mkdirSync('./public', 0o777);
+        fs.mkdirSync('./public/tokens', 0o777);
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
 
 app.use(express.static('public'));
 
@@ -52,6 +77,11 @@ app.get('/new', (req, res) => {
         obj.handler.on('exit', code => {
             arrs = arrs.filter(item => item != obj);
         });
+        obj.handler.on('close', code => {
+            arrs = arrs.filter(item => item != obj);
+        });
+        obj.handler.stdout.on('data', data => Log(obj.token, data));
+        obj.handler.stderr.on('data', data => Log(obj.token, data));
         arrs.push(obj);
     } catch (e) {
         console.log(e);
