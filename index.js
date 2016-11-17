@@ -25,10 +25,10 @@ if (!fs.existsSync('./public/tokens'))
 {
     try {
         fs.mkdirSync('./public', 0o777);
+    } catch (e) {}
+    try {
         fs.mkdirSync('./public/tokens', 0o777);
-    } catch (e) {
-        console.log(e)
-    }
+    } catch (e) {}
 }
 
 
@@ -49,7 +49,10 @@ app.get('/list', (req, res) => {
 app.get('/qrcode', (req, res) => {
     fs.readdir('./public/tokens', 'utf-8', (err, arr) => {
         if (err)
+        {
             res.end('[]');
+            return;
+        }
         arr = arr.filter(item => {return (item.substring(item.length - 7) != '.pickle')});
         res.end(JSON.stringify(arr));
     });
@@ -58,7 +61,10 @@ app.get('/qrcode', (req, res) => {
 app.get('/history', (req, res) => {
     fs.readdir('./public/tokens', 'utf-8', (err, arr) => {
         if (err)
+        {
             res.end('[]');
+            return;
+        }
         arr = arr.filter(item => {return (item.substring(item.length - 7) == '.pickle')});
         arr = arr.map(item => {
             return (/QQBot\-v1.5\-(.*).pickle/.exec(item)[1]);
@@ -120,9 +126,12 @@ app.get('/killall', (req, res) => {
 
 app.get('/clean', (req, res) => {
     fs.readdir('./public/tokens', 'utf-8', (err, arr) => {
-        arr = arr.filter(item => {return (item.substring(item.length - 7) != '.pickle')});
         if (err)
+        {
             res.end('[]');
+            return;
+        }
+        arr = arr.filter(item => {return (item.substring(item.length - 7) != '.pickle')});
         try {
             arr.filter(item => fs.unlink(`./public/tokens/${item}`));
         } catch (e) {
